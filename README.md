@@ -110,15 +110,43 @@ For a non-existent transaction, the service throws an `IllegalArgumentException`
 Transaction with ID TXN999 not found
 ```
 
-## Testing expectations
+### Update Transaction Status
 
-Add at least four meaningful tests.
+`PUT /api/transactions/{transactionId}/status`
 
-Your tests should cover more than just application startup. 
+Updates the status of an existing transaction.
 
-You decide exactly which tests provide the best coverage.
+Only transactions currently in `PENDING` status can be updated.
 
+A `PENDING` transaction can be changed to:
 
+- `COMPLETED`
+- `FAILED`
+- `CANCELLED`
+
+Example:
+
+`PUT /api/transactions/TXN001/status`
+
+Request body:
+
+```json
+{
+  "status": "COMPLETED"
+}
+```
+
+### Get All Transactions for a Customer
+
+`GET /api/transactions/customer/{customerId}`
+
+Retrieves all transactions belonging to a specific customer.
+
+Example:
+
+`GET /api/transactions/customer/CUST001`
+
+The endpoint returns all transactions associated with the specified customer.
 
 ## Implemented Validation Rules
 
