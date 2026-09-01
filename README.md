@@ -90,6 +90,25 @@ Example request:
   "transactionType": "PAYMENT",
   "status": "PENDING"
 }
+```
+
+### Get Transaction
+
+`GET /api/transactions/{transactionId}`
+
+Retrieves a transaction using its transaction ID.
+
+If the requested transaction does not exist, the service returns an appropriate error message.
+
+Example:
+
+`GET /api/transactions/TXN999`
+
+For a non-existent transaction, the service throws an `IllegalArgumentException` with the message:
+
+```text
+Transaction with ID TXN999 not found
+```
 
 ## Testing expectations
 
@@ -98,6 +117,7 @@ Add at least four meaningful tests.
 Your tests should cover more than just application startup. 
 
 You decide exactly which tests provide the best coverage.
+
 
 
 ## Implemented Validation Rules
@@ -147,7 +167,7 @@ The response includes an error type and an explanatory message.
 
 ## Testing
 
-The project contains 7 meaningful transaction service tests covering:
+The project contains 8 meaningful transaction service tests covering:
 
 - Successful transaction creation
 - Successful transaction retrieval
@@ -156,12 +176,29 @@ The project contains 7 meaningful transaction service tests covering:
 - Duplicate transaction ID rejection
 - Invalid amount rejection
 - Rejection of status updates from completed transactions
+- Rejection when retrieving a non-existent transaction
 
-The complete test suite currently contains 8 tests, and all 8 tests pass.
+The complete test suite currently contains 9 tests, and all 9 tests pass.
+
+## Known Limitations
+
+- The application uses the embedded H2 database, so data is not persisted across application restarts.
+- The current test suite focuses mainly on the service layer and application context rather than full controller-level integration testing.
+- API documentation such as OpenAPI/Swagger has not been added because it was not required for the exercise.
+
+## What I Would Improve With More Time
+
+- Add controller-level integration tests for all API endpoints.
+- Add more detailed validation for fields such as currency and transaction type based on business requirements.
+- Improve API documentation with OpenAPI/Swagger.
+- Add more comprehensive error-response tests.
 
 ## AI Assistance Disclosure
 
-AI assistance was used during development to help with implementation,
+AI assistance was used during development to support implementation,
 debugging, test creation, documentation, and understanding the project
 requirements.
+
+The final implementation was reviewed and tested by the developer, who is
+responsible for the submitted code and its behavior.
 
