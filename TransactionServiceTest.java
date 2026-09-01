@@ -241,3 +241,23 @@ class TransactionServiceTest {
         verify(transactionRepository, never()).save(any());
     }
 }
+
+// Test 8: Non-existent transaction should be rejected
+@Test
+void shouldRejectNonExistentTransaction() {
+
+    when(transactionRepository.findById("TXN999"))
+            .thenReturn(Optional.empty());
+
+    IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> transactionService.getTransaction("TXN999")
+    );
+
+    assertEquals(
+            "Transaction with ID TXN999 not found",
+            exception.getMessage()
+    );
+
+    verify(transactionRepository).findById("TXN999");
+}
